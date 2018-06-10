@@ -33,12 +33,12 @@ public class Attacker : MonoBehaviour
         {
             this.StopAttacking();
         }
-	}   
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log(name + " collided with " + collision);
-    }
+        // Test Button select
+        //print (Button.GetSelectedDefender());
+        Button.GetSelectedDefender();
+
+    }   
 
     public Animator GetAnimator()
     {

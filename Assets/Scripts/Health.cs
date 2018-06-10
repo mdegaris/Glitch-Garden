@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class Health : MonoBehaviour
     {
         if (damage < 0)
         {
-            Debug.LogError("Damage can't be a negative number: " + damage);
+            throw new ArgumentOutOfRangeException("damage", "Damage can't be a negative number: " + damage);
         }
 
         float newHealth = this.health - damage;
@@ -29,9 +30,7 @@ public class Health : MonoBehaviour
 
     public void Kill()
     {
-        Debug.Log("-----------------------------------------");
         Debug.Log(this.gameObject.name + " has been killed!");
-        Debug.Log("-----------------------------------------");
         Destroy(this.gameObject);
     }
 }
