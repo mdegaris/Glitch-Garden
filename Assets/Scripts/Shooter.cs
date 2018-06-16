@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    private static string PROJECTILES = "Projectiles";    
+    private static string SPAWNERS = "Spawners";
+    private static string PROJECTILES = "Projectiles";
+    private static string IS_ATTACKING_NAME = "isAttacking";
 
+    private int snappedYPosition;
     private GameObject projectileParent;
+    private Animator animator;
+    private AttackerSpawner laneSpawner;
     private Gun gun;
 
+    private GameObject spawnersParent;
     public GameObject projectile;
+    
 
-
-    private void Awake()
+    private void Start()
     {
         this.projectileParent = GameObject.Find(Shooter.PROJECTILES);
         if (!this.projectileParent)
@@ -21,6 +27,31 @@ public class Shooter : MonoBehaviour
         }
 
         this.gun = gameObject.GetComponentInChildren<Gun>();
+
+        // Init Animator
+        this.animator = this.GetComponent<Animator>();
+        this.animator.SetBool(Shooter.IS_ATTACKING_NAME, false);
+
+        // Init Spawners parent
+        this.spawnersParent = GameObject.Find(Shooter.SPAWNERS);
+
+        // Init Y position
+        this.snappedYPosition = Mathf.RoundToInt(this.transform.position.y);
+
+        // Init Lane Spawner, throw error if one can't be found
+        this.laneSpawner = this.GetThisLaneSpawner();
+        if (this.laneSpawner == null)
+        {
+            Debug.LogError("No AttackSpawner could be found for lane with Y position: " + this.snappedYPosition);
+        }
+    }
+
+    private void Update()
+    {
+        if (this.IsAttackerInLineOfSight())
+        {
+            this.animator.SetBool(Shooter.IS_ATTACKING_NAME, true);
+        }
     }
 
     private void FireGun()
@@ -29,5 +60,27 @@ public class Shooter : MonoBehaviour
         newProjectile.transform.position = gun.transform.position;
 
         Debug.Log(this.name + " has spawned a " + projectile.name + " from the " + gun.name + "!");
+    }
+
+    private AttackerSpawner GetThisLaneSpawner()
+    {
+        AttackerSpawner foundAttackerSpawner = null;
+        AttackerSpawner[] allSpawners = this.spawnersParent.GetComponentsInChildren<AttackerSpawner>();         
+        foreach (AttackerSpawner thisSpawner in allSpawners)
+        {
+            int spawnerYPos = Mathf.RoundToInt(thisSpawner.transform.position.y);
+            if ((foundAttackerSpawner == null) && (this.snappedYPosition == spawnerYPos))
+            {
+                foundAttackerSpawner = thisSpawner;
+                Debug.Log("Found Lane Spawner (" + foundAttackerSpawner + ") at Y pos: " + spawnerYPos);
+            }
+        }
+
+        return foundAttackerSpawner;
+    }
+
+    private bool IsAttackerInLineOfSight()
+    {
+        return true;
     }
 }

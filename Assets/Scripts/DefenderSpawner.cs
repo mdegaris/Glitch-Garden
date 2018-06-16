@@ -37,7 +37,7 @@ public class DefenderSpawner : MonoBehaviour
         if (selectedDefender)
         {
             Transform parentTransform = this.defenderParent.transform;
-            Instantiate(selectedDefender, snappedPosition, Quaternion.identity, parentTransform);
+            GameObject newDefender = Instantiate(selectedDefender, snappedPosition, Quaternion.identity, parentTransform);
         }
     }
 
