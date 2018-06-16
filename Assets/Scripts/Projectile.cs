@@ -6,9 +6,15 @@ public class Projectile : MonoBehaviour
 {
     public float speed, damage;
 
+    // ===================================================================
 
-    public static bool IsObjectAttacker(GameObject obj) { return ((obj.GetComponent<Attacker>()) ? true : false); }
+    // Static function determining if a given object is an Attacker or not.
+    public static bool IsObjectAttacker(GameObject obj)
+    {
+        return ((obj.GetComponent<Attacker>()) ? true : false);
+    }
 
+    // ===================================================================
 
     // Update is called once per frame
     private void Update()

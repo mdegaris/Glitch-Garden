@@ -4,30 +4,36 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
+
+    // ===================================================================
+    // Class variables
+    // ===================================================================
+
+    // Statics
+
     private static Color UNSELECTED_COLOR = Color.black;
     private static Color SELECTED_COLOR = Color.white;
     private static Button[] buttonArray;
     private static GameObject selectedDefender;
-    
+
+    // Instances
     private bool selected;    
     public GameObject defenderPrefab;
 
 
+
+    // ===================================================================
+    // Class methods
+    // ===================================================================
+
+    // Statics
     public static GameObject GetSelectedDefender()
     {
-        GameObject selectedDefender = null;
-        foreach (Button thisButton in GameObject.FindObjectsOfType<Button>())
-        {            
-            if (thisButton.selected)
-            {                
-                selectedDefender = thisButton.defenderPrefab;
-                print(thisButton + " " + thisButton.selected);
-            }
-        }
-
-        return selectedDefender;
+        return Button.selectedDefender;
     }
 
+
+    // Instances
 
     // Use this for initialization
     private void Start()
@@ -42,7 +48,7 @@ public class Button : MonoBehaviour
     {
         this.UnselectAllButtons();
         this.gameObject.GetComponent<SpriteRenderer>().color = Button.SELECTED_COLOR;
-        this.selected = true;
+        Button.selectedDefender = this.defenderPrefab;
     }
 
     private void UnselectAllButtons()
@@ -51,7 +57,7 @@ public class Button : MonoBehaviour
         {
             SpriteRenderer buttonSpr = thisButton.GetComponent<SpriteRenderer>();
             buttonSpr.color = Button.UNSELECTED_COLOR;
-            this.selected = false;
+            thisButton.selected = false;
         }
     }
 }

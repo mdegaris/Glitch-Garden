@@ -12,20 +12,28 @@ public class Attacker : MonoBehaviour
     private GameObject currentTarget;
     private Animator animator;
 
+    [Tooltip("Controls how often (in seconds) this Attacker will spawn")]
+    public float meanSpawnFrequency;
 
-    public static bool IsObjectDefender(GameObject obj) { return ((obj.GetComponent<Defender>()) ? true : false); }
+    public static bool IsObjectDefender(GameObject obj)
+    {
+        return ((obj.GetComponent<Defender>()) ? true : false);
+    }
 
-    public static bool IsObjectProjectile(GameObject obj) { return ((obj.GetComponent<Projectile>()) ? true : false); }
+    public static bool IsObjectProjectile(GameObject obj)
+    {
+        return ((obj.GetComponent<Projectile>()) ? true : false);
+    }
 
 
     // Use this for initialization
-    private void Start ()
+    private void Start()
     {
         this.animator = gameObject.GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	private void Update ()
+    }
+
+    // Update is called once per frame
+    private void Update()
     {
         transform.Translate(Vector3.left * this.currentSpeed * Time.deltaTime);
 
@@ -33,12 +41,7 @@ public class Attacker : MonoBehaviour
         {
             this.StopAttacking();
         }
-
-        // Test Button select
-        //print (Button.GetSelectedDefender());
-        Button.GetSelectedDefender();
-
-    }   
+    }
 
     public Animator GetAnimator()
     {
@@ -71,6 +74,6 @@ public class Attacker : MonoBehaviour
 
     public void StopAttacking()
     {
-        this.animator.SetBool(IS_ATTACKING_NAME, false);  
+        this.animator.SetBool(IS_ATTACKING_NAME, false);
     }
 }
