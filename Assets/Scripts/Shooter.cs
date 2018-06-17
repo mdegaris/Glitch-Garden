@@ -9,6 +9,7 @@ public class Shooter : MonoBehaviour
     private static string IS_ATTACKING_NAME = "isAttacking";
 
     private int snappedYPosition;
+    private float xPosition;
     private GameObject projectileParent;
     private Animator animator;
     private AttackerSpawner laneSpawner;
@@ -35,8 +36,9 @@ public class Shooter : MonoBehaviour
         // Init Spawners parent
         this.spawnersParent = GameObject.Find(Shooter.SPAWNERS);
 
-        // Init Y position
+        // Init shooter co-ords
         this.snappedYPosition = Mathf.RoundToInt(this.transform.position.y);
+        this.xPosition = this.transform.position.x;
 
         // Init Lane Spawner, throw error if one can't be found
         this.laneSpawner = this.GetThisLaneSpawner();
@@ -48,9 +50,13 @@ public class Shooter : MonoBehaviour
 
     private void Update()
     {
-        if (this.IsAttackerInLineOfSight())
+        if (this.IsAttackerInFront())
         {
             this.animator.SetBool(Shooter.IS_ATTACKING_NAME, true);
+        }
+        else
+        {
+            this.animator.SetBool(Shooter.IS_ATTACKING_NAME, false);
         }
     }
 
@@ -79,8 +85,17 @@ public class Shooter : MonoBehaviour
         return foundAttackerSpawner;
     }
 
-    private bool IsAttackerInLineOfSight()
-    {
-        return true;
+    private bool IsAttackerInFront()
+    {        
+        Attacker[] laneAttackers = this.laneSpawner.GetComponentsInChildren<Attacker>();
+        foreach (Attacker laneAttacker in laneAttackers)
+        {
+            if (this.xPosition < laneAttacker.transform.position.x)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -581,7 +581,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Animal invaders not welcome!
+  m_Text: We hate all Animals!
 --- !u!222 &878538036
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1097,6 +1097,10 @@ Prefab:
     - target: {fileID: 114997351118744918, guid: e724d76a4f85fd148b8539464b4b718e,
         type: 2}
       propertyPath: fadeInTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086908447024980, guid: e724d76a4f85fd148b8539464b4b718e, type: 2}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
