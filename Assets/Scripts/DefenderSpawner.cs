@@ -9,6 +9,7 @@ public class DefenderSpawner : MonoBehaviour
 
     private GameObject defenderParent;
     private Camera mainCamera;
+    private StarDisplay starDisplay;
 
     // Use this for initialization
     void Start()
@@ -20,6 +21,8 @@ public class DefenderSpawner : MonoBehaviour
         {
             this.defenderParent = new GameObject(DefenderSpawner.DEFENDERS);
         }
+
+        this.starDisplay = GameObject.FindObjectOfType<StarDisplay>();
     }
 
     // Update is called once per frame
@@ -34,10 +37,22 @@ public class DefenderSpawner : MonoBehaviour
         Vector2 snappedPosition = this.SnapToGrid(rawPosition);
 
         GameObject selectedDefender = Button.GetSelectedDefender();
+
         if (selectedDefender)
         {
-            Transform parentTransform = this.defenderParent.transform;
-            GameObject newDefender = Instantiate(selectedDefender, snappedPosition, Quaternion.identity, parentTransform);
+            Defender selectedDefenderObj = selectedDefender.GetComponent<Defender>();
+            int starCost = selectedDefenderObj.starCost;
+
+            if ((this.starDisplay.GetCurrentStars() - starCost) >= 0)
+            { 
+                Transform parentTransform = this.defenderParent.transform;
+                GameObject newDefender = Instantiate(selectedDefender, snappedPosition, Quaternion.identity, parentTransform);
+            }
+            else
+            {
+                Debug.Log("Can't afford to buy a " + selectedDefender);
+            }
+
         }
     }
 

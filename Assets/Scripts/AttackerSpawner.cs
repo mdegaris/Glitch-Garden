@@ -62,6 +62,6 @@ public class AttackerSpawner : MonoBehaviour
         GameObject newAttacker = Instantiate(attacker, transform);
         newAttacker.transform.parent = transform;
 
-        Debug.Log(newAttacker.name + " has been spawned at time " + Time.time);
+        // Debug.Log(newAttacker.name + " has been spawned at time " + Time.time);
     }
 }

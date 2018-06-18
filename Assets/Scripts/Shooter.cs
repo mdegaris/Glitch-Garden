@@ -8,8 +8,8 @@ public class Shooter : MonoBehaviour
     private static string PROJECTILES = "Projectiles";
     private static string IS_ATTACKING_NAME = "isAttacking";
 
-    private int snappedYPosition;
-    private float xPosition;
+    private int defenderSnappedYPosition;
+    private float defenderXPosition;
     private GameObject projectileParent;
     private Animator animator;
     private AttackerSpawner laneSpawner;
@@ -37,14 +37,14 @@ public class Shooter : MonoBehaviour
         this.spawnersParent = GameObject.Find(Shooter.SPAWNERS);
 
         // Init shooter co-ords
-        this.snappedYPosition = Mathf.RoundToInt(this.transform.position.y);
-        this.xPosition = this.transform.position.x;
+        this.defenderSnappedYPosition = Mathf.RoundToInt(this.transform.position.y);
+        this.defenderXPosition = this.transform.position.x;
 
         // Init Lane Spawner, throw error if one can't be found
         this.laneSpawner = this.GetThisLaneSpawner();
         if (this.laneSpawner == null)
         {
-            Debug.LogError("No AttackSpawner could be found for lane with Y position: " + this.snappedYPosition);
+            Debug.LogError("No AttackSpawner could be found for lane with Y position: " + this.defenderSnappedYPosition);
         }
     }
 
@@ -60,14 +60,16 @@ public class Shooter : MonoBehaviour
         }
     }
 
+    // Fire a new projectile from the Gun object 
     private void FireGun()
     {
         GameObject newProjectile = Instantiate(projectile, projectileParent.transform);
         newProjectile.transform.position = gun.transform.position;
 
-        Debug.Log(this.name + " has spawned a " + projectile.name + " from the " + gun.name + "!");
+        // Debug.Log(this.name + " has spawned a " + projectile.name + " from the " + gun.name + "!");
     }
 
+    // Gets the lane spawner (AttackerSpawner) object that's currently in this defender's lane
     private AttackerSpawner GetThisLaneSpawner()
     {
         AttackerSpawner foundAttackerSpawner = null;
@@ -75,7 +77,7 @@ public class Shooter : MonoBehaviour
         foreach (AttackerSpawner thisSpawner in allSpawners)
         {
             int spawnerYPos = Mathf.RoundToInt(thisSpawner.transform.position.y);
-            if ((foundAttackerSpawner == null) && (this.snappedYPosition == spawnerYPos))
+            if ((foundAttackerSpawner == null) && (this.defenderSnappedYPosition == spawnerYPos))
             {
                 foundAttackerSpawner = thisSpawner;
                 Debug.Log("Found Lane Spawner (" + foundAttackerSpawner + ") at Y pos: " + spawnerYPos);
@@ -85,17 +87,25 @@ public class Shooter : MonoBehaviour
         return foundAttackerSpawner;
     }
 
+    // Checks if an attacker is in from the defender, and returns true/false
     private bool IsAttackerInFront()
     {        
-        Attacker[] laneAttackers = this.laneSpawner.GetComponentsInChildren<Attacker>();
-        foreach (Attacker laneAttacker in laneAttackers)
+        // If we have 1 or more attackers in the lane
+        if (this.laneSpawner.transform.childCount > 0)
         {
-            if (this.xPosition < laneAttacker.transform.position.x)
+            // Iterate through all the spawners transforms (i.e. the attacker's transforms)
+            foreach (Transform laneAttacker in this.laneSpawner.transform)
             {
-                return true;
+                // Check if the attacker's x position is greater (in front) than the defender's
+                if (this.defenderXPosition < laneAttacker.position.x)
+                {
+                    // Then we have an attacker in front of the defender
+                    return true;
+                }
             }
         }
 
+        // All other cases mean we don't have an attacker in front of the defender
         return false;
     }
 }
