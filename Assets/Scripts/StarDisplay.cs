@@ -11,6 +11,8 @@ public class StarDisplay : MonoBehaviour
 
     public int startingStars;
 
+    public enum Status{SUCCESS, FAILURE};
+
     // Use this for initialization
     private void Start()
     {
@@ -31,23 +33,18 @@ public class StarDisplay : MonoBehaviour
         this.UpdateDisplay();
     }
 
-    public void UseStars(int amount)
+    public Status UseStars(int amount)
     {
-        int newStarsTotal = (this.currentStars - amount);
-        if (newStarsTotal < 0)
+        // If we have enough stars then remove cost and return SUCCESS
+        if (amount <= this.currentStars)
         {
-            this.currentStars = 0;
+            this.currentStars -= amount;
+            this.UpdateDisplay();
+            return Status.SUCCESS;
         }
         else
         {
-            this.currentStars = newStarsTotal;
+            return Status.FAILURE;
         }
-
-        this.UpdateDisplay();
-    }
-
-    public int GetCurrentStars()
-    {
-        return this.currentStars;
     }
 }

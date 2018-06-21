@@ -15,21 +15,15 @@ public class DefenderSpawner : MonoBehaviour
     void Start()
     {
         this.mainCamera = Camera.main;
+        this.starDisplay = GameObject.FindObjectOfType<StarDisplay>();
 
         this.defenderParent = GameObject.Find(DefenderSpawner.DEFENDERS);
         if (!this.defenderParent)
         {
             this.defenderParent = new GameObject(DefenderSpawner.DEFENDERS);
-        }
-
-        this.starDisplay = GameObject.FindObjectOfType<StarDisplay>();
+        }        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void OnMouseDown()
     {
@@ -40,21 +34,36 @@ public class DefenderSpawner : MonoBehaviour
 
         if (selectedDefender)
         {
-            Defender selectedDefenderObj = selectedDefender.GetComponent<Defender>();
-            int starCost = selectedDefenderObj.starCost;
-
-            if ((this.starDisplay.GetCurrentStars() - starCost) >= 0)
-            { 
-                Transform parentTransform = this.defenderParent.transform;
-                GameObject newDefender = Instantiate(selectedDefender, snappedPosition, Quaternion.identity, parentTransform);
+            // Attempt to spend the stars and spawn a defender instance on success
+            int starCost = this.GetDefenderCost(selectedDefender);
+            if (this.starDisplay.UseStars(starCost) == StarDisplay.Status.SUCCESS)
+            {
+                SpawnDefender(snappedPosition, selectedDefender);
             }
             else
             {
-                Debug.Log("Can't afford to buy a " + selectedDefender);
+                Debug.Log("Can't afford to buy a " + selectedDefender + ". Insufficient funds.");
             }
-
         }
     }
+
+
+    private int GetDefenderCost(GameObject selectedDefender)
+    {
+        // Get the star cost of the defender type
+        Defender selectedDefenderObj = selectedDefender.GetComponent<Defender>();
+        int starCost = selectedDefenderObj.starCost;
+        return starCost;
+    }
+
+
+    private void SpawnDefender(Vector2 snappedPosition, GameObject selectedDefender)
+    {
+        Quaternion zeroRotation = Quaternion.identity;
+        Transform parentTransform = this.defenderParent.transform;
+        GameObject newDefender = Instantiate(selectedDefender, snappedPosition, zeroRotation, parentTransform);
+    }
+
 
     private Vector2 SnapToGrid(Vector2 rawWorldPos)
     {

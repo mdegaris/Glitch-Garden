@@ -10,7 +10,6 @@ public class Defender : MonoBehaviour
     private void Start()
     {
         this.starDisplay = GameObject.FindObjectOfType<StarDisplay>();
-        this.starDisplay.UseStars(this.starCost);
     }
 
     public void AddStars(int amount)
