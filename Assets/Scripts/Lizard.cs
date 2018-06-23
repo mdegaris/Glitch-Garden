@@ -17,7 +17,7 @@ public class Lizard : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject collidingGameObj = collision.gameObject;
-        if (Attacker.IsObjectDefender(collidingGameObj))
+        if (Defender.IsObjectDefender(collidingGameObj))
         {
             Debug.Log("Lizard attacks the " + collision);
             this.attacker.Attack(collidingGameObj);

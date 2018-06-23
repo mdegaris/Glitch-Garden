@@ -15,14 +15,11 @@ public class Attacker : MonoBehaviour
     [Tooltip("Controls how often (in seconds) this Attacker will spawn")]
     public float meanSpawnFrequency;
 
-    public static bool IsObjectDefender(GameObject obj)
-    {
-        return ((obj.GetComponent<Defender>()) ? true : false);
-    }
 
-    public static bool IsObjectProjectile(GameObject obj)
+    // Static function determining if a given object is an Attacker or not.
+    public static bool IsObjectAttacker(GameObject obj)
     {
-        return ((obj.GetComponent<Projectile>()) ? true : false);
+        return ((obj.GetComponent<Attacker>()) ? true : false);
     }
 
 

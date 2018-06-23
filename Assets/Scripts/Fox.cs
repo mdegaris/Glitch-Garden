@@ -14,7 +14,7 @@ public class Fox : MonoBehaviour
     public static bool IsObjectJumpable(GameObject obj)
     {
         bool jumpable = false;
-        if (Attacker.IsObjectDefender(obj) && obj.GetComponent<Stone>())
+        if (Defender.IsObjectDefender(obj) && obj.GetComponent<Stone>())
         {
             jumpable = true;
         }
@@ -32,7 +32,7 @@ public class Fox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {        
         GameObject collidingGameObj = collision.gameObject;
-        if (!Attacker.IsObjectDefender(collidingGameObj))
+        if (!Defender.IsObjectDefender(collidingGameObj))
         {
             return;
         }

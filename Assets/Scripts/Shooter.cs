@@ -65,8 +65,6 @@ public class Shooter : MonoBehaviour
     {
         GameObject newProjectile = Instantiate(projectile, projectileParent.transform);
         newProjectile.transform.position = gun.transform.position;
-
-        // Debug.Log(this.name + " has spawned a " + projectile.name + " from the " + gun.name + "!");
     }
 
     // Gets the lane spawner (AttackerSpawner) object that's currently in this defender's lane

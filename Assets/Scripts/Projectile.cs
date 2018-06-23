@@ -8,10 +8,9 @@ public class Projectile : MonoBehaviour
 
     // ===================================================================
 
-    // Static function determining if a given object is an Attacker or not.
-    public static bool IsObjectAttacker(GameObject obj)
+    public static bool IsObjectProjectile(GameObject obj)
     {
-        return ((obj.GetComponent<Attacker>()) ? true : false);
+        return ((obj.GetComponent<Projectile>()) ? true : false);
     }
 
     // ===================================================================
@@ -24,10 +23,10 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(name + " collided with " + collision);
+        // Debug.Log(name + " collided with " + collision);
 
         GameObject collidingGameObj = collision.gameObject;
-        if (Projectile.IsObjectAttacker(collidingGameObj))
+        if (Attacker.IsObjectAttacker(collidingGameObj))
         {
             Health attackerHealth = collidingGameObj.GetComponent<Health>();
             attackerHealth.DealDamage(this.damage);
