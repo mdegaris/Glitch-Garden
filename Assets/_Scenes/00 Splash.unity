@@ -290,6 +290,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  levelComplete: {fileID: 8300000, guid: 8a0fda8aff6d24fbea3bf3e1a5929f6c, type: 3}
 --- !u!82 &632095409
 AudioSource:
   m_ObjectHideFlags: 0

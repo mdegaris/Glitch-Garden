@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 61785758010149798}
   - component: {fileID: 114787662354411968}
   - component: {fileID: 114825749312308218}
+  - component: {fileID: 114720609727925404}
   m_Layer: 0
   m_Name: Star Trophy
   m_TagString: Untagged
@@ -87,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1305345742122000}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4474006112635778}
@@ -102,7 +103,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1655059031288538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.078, z: 0}
+  m_LocalPosition: {x: 0, y: -0.146, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4645170286018980}
@@ -129,7 +130,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509330120787928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.16999996, z: 0}
+  m_LocalPosition: {x: 0, y: -0.23799995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4137683647020436}
@@ -192,7 +193,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0029107034, y: -0.0077622086}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -203,7 +204,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.40037286, y: 0.76713514}
   m_EdgeRadius: 0
 --- !u!95 &95443125745760316
 Animator:
@@ -222,6 +223,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114720609727925404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1305345742122000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aadccb53daa70c64a914297744eb0de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starAward: 15
 --- !u!114 &114787662354411968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8af1d47f2a92f4bb14c87754eff6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starCost: 15
+  starCost: 20
 --- !u!114 &114825749312308218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -245,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf36dfbfddf5f0419a5fab8284acbe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
+  health: 100
 --- !u!212 &212556919115367058
 SpriteRenderer:
   m_ObjectHideFlags: 1

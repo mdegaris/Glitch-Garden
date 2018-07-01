@@ -1,34 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Defender : MonoBehaviour
+public class QuitButton : MonoBehaviour
 {
 
     // ===================================================================
     // Variables
     // ===================================================================
 
-    public int starCost;
+    private LevelManager levelManager;
 
 
     // ===================================================================
     // Methods
     // ===================================================================
 
-    // Statics
-
-    public static bool IsObjectDefender(GameObject obj)
+    private void Start()
     {
-        return ((obj.GetComponent<Defender>()) ? true : false);
+        this.levelManager = GameObject.FindObjectOfType<LevelManager>();
     }
 
-
-    // Instances
-
-    public int GetStarCost()
-    {
-        return this.starCost;
+    private void OnMouseDown()
+    { 
+    
+        this.levelManager.QuitCurrentGame();
     }
-
 }

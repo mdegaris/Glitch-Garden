@@ -10,8 +10,6 @@ public class LoseCollider : MonoBehaviour
     private void Start()
     {
         this.levelManager = GameObject.FindObjectOfType<LevelManager>();
-
-        Debug.Log("Found " + this.levelManager);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

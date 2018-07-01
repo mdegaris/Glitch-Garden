@@ -5,27 +5,30 @@ using UnityEngine.UI;
 
 public class OptionsController : MonoBehaviour
 {
+    private LevelManager levelManager;
+
     public Slider volumeSlider;
     public Slider difficultySlider;
-    public LevelManager levelManager;
-
     public float defaultVolume;
     public float defaultDifficulty;
 
     private MusicManager musicManager;
 
-    /*********************************************************************/
+    
 
     // Use this for initialization
     private void Start()
     {
-        // Set volume and diffulty sliders to current values
+        
+        this.levelManager = GameObject.FindObjectOfType<LevelManager>();        
         this.musicManager = GameObject.FindObjectOfType<MusicManager>();
+
+        // Set volume and diffulty sliders to current values
         this.volumeSlider.value = PlayerPrefsManager.GetMasterVolume();
         this.difficultySlider.value = PlayerPrefsManager.GetDifficulty();
     }
 
-    /*********************************************************************/
+    
 
     // Update is called once per frame
     private void Update()
@@ -40,7 +43,7 @@ public class OptionsController : MonoBehaviour
         }        
     }
 
-    /*********************************************************************/
+    
 
     public void SaveAndExit()
     {
@@ -52,7 +55,7 @@ public class OptionsController : MonoBehaviour
         levelManager.LoadLevel("01a Start SCreen");
     }
 
-    /*********************************************************************/
+    
 
     public void SetDefaults()
     {
