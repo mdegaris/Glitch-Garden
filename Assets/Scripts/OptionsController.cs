@@ -12,7 +12,7 @@ public class OptionsController : MonoBehaviour
     public float defaultVolume;
     public float defaultDifficulty;
 
-    private MusicManager musicManager;
+    private SoundManager musicManager;
 
     
 
@@ -21,7 +21,7 @@ public class OptionsController : MonoBehaviour
     {
         
         this.levelManager = GameObject.FindObjectOfType<LevelManager>();        
-        this.musicManager = GameObject.FindObjectOfType<MusicManager>();
+        this.musicManager = GameObject.FindObjectOfType<SoundManager>();
 
         // Set volume and diffulty sliders to current values
         this.volumeSlider.value = PlayerPrefsManager.GetMasterVolume();

@@ -16,7 +16,8 @@ public class GameTimer : MonoBehaviour
     private Text completeText;
     private bool isEndOfLevel;
     private LevelManager levelManager;
-    private MusicManager musicManager;
+    private SoundManager musicManager;
+    private MessageController messageController;
 
 
     // ===================================================================
@@ -28,8 +29,8 @@ public class GameTimer : MonoBehaviour
     {
         // Initialise required objects
         this.levelManager = GameObject.FindObjectOfType<LevelManager>();
-        this.musicManager = GameObject.FindObjectOfType<MusicManager>();
-        this.completeText = GameObject.FindObjectOfType<LevelCompleteLabel>().GetComponent<Text>();
+        this.musicManager = GameObject.FindObjectOfType<SoundManager>();
+        this.messageController = GameObject.FindObjectOfType<MessageController>();
         this.slider = this.gameObject.GetComponent<Slider>();
 
         // Initialise slider.
@@ -41,16 +42,6 @@ public class GameTimer : MonoBehaviour
         // Track if we've reached the end of the level 
         // (prevents repeated executiuon of level completion code)
         this.isEndOfLevel = false;
-
-        // Initialise the complete level text visibility status
-        if (this.completeText)
-        {
-            this.completeText.enabled = false;
-        }
-        else
-        {
-            Debug.LogWarning("Level completion label could not be found.");
-        }
     }    
 
     // Update the state of the slider
@@ -73,10 +64,7 @@ public class GameTimer : MonoBehaviour
     private void CompletedLevel()
     {
         // Display the level complete text
-        if (this.completeText)
-        {
-            this.completeText.enabled = true;
-        }
+        this.messageController.DisplayLevelComplete();
 
         // Slow down time and play jingle.
         Time.timeScale = 0.1f;
